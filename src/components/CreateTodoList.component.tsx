@@ -13,9 +13,15 @@ export default function CreateTodoList() {
   return (
     <div>
       {!showAddForm ? (
-        <button onClick={() => setShowAddForm(true)} type="button">
-          Add a new task
-        </button>
+        <div className="flex justify-end">
+          <button
+            className="border py-2 px-5 rounded-md cursor-pointer"
+            onClick={() => setShowAddForm(true)}
+            type="button"
+          >
+            Add Task
+          </button>
+        </div>
       ) : (
         <div>
           <TaskCreateComp

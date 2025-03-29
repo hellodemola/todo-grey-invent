@@ -1,3 +1,6 @@
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export function TaskViewComp({
   title,
   handleDelete,
@@ -8,11 +11,15 @@ export function TaskViewComp({
   handleDelete: () => void;
 }) {
   return (
-    <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-      <p>{title}</p>
-      <div>
-        <button onClick={handleEdit}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
+    <div className="flex justify-between items-center my-2 w-full">
+      <p className="leading-[1.5em] font-light text-[1.2em]">{title}</p>
+      <div className="flex gap-8 justify-between">
+        <button onClick={handleEdit}>
+          <FontAwesomeIcon icon={faPencil} />
+        </button>
+        <button onClick={handleDelete}>
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
       </div>
     </div>
   );

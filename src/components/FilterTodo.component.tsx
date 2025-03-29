@@ -9,20 +9,24 @@ export default function FilterTodList() {
         type="text"
         onChange={(e) => dispatch(setSearchQuery(e.target.value))}
         placeholder="Search tasks by title"
+        className="p-2 rounded-md border w-full my-4"
       />
-      <div>
-        <p>Filter tasks:</p>
-        <select
-          onChange={(e) =>
-            dispatch(
-              setStatus(e.target.value as "all" | "completed" | "pending")
-            )
-          }
-        >
-          <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="completed">Completed</option>
-        </select>
+      <div className="flex justify-end my-2">
+        <div className="flex gap-2">
+          <p className="text-[1.2em] font-light">Filter tasks:</p>
+          <select
+            onChange={(e) =>
+              dispatch(
+                setStatus(e.target.value as "all" | "completed" | "pending")
+              )
+            }
+            className="border rounded-md p-1"
+          >
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
       </div>
     </div>
   );
