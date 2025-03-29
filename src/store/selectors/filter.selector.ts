@@ -10,8 +10,7 @@ export const selectFilters = (state: RootState) => state.filter;
 export const selectFilteredTodos = createSelector(
   [selectTodos, selectFilters],
   (todos, filters) => {
-    return todos
-      .filter((todo: ITodo) => {
+    return (todos as ITodo[]).filter((todo: ITodo) => {
         if (filters.status === 'completed') return todo.completed;
         if (filters.status === 'pending') return !todo.completed;
         return true; // Show all
