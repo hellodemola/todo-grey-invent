@@ -15,7 +15,7 @@ export default function TaskEditComp({
     return handleEdit(updatedTitle);
   };
   return (
-    <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+    <div className="flex justify-between items-center my-2 w-full">
       <input
         defaultValue={title}
         onChange={(e) => setUpdatedTitle(e.target.value)}
@@ -24,9 +24,10 @@ export default function TaskEditComp({
             handleEditFunc();
           }
         }}
+        className="border w-100 p-1"
       />
 
-      <div>
+      <div className="flex gap-8 justify-between">
         <button disabled={!updatedTitle} onClick={handleEditFunc}>
           Save
         </button>

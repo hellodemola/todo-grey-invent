@@ -9,7 +9,7 @@ export default function TaskCreateComp({
 }) {
   const [updatedTitle, setUpdatedTitle] = useState<string>("");
   return (
-    <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+    <div className="my-4">
       <input
         autoFocus
         onChange={(e) => setUpdatedTitle(e.target.value)}
@@ -18,16 +18,23 @@ export default function TaskCreateComp({
             handleEdit(updatedTitle);
           }
         }}
+        className="border rounded-md w-full my-4 p-2"
       />
 
-      <div>
+      <div className="flex gap-4">
         <button
           disabled={!updatedTitle}
           onClick={() => handleEdit(updatedTitle)}
+          className="bg-[blue] border cursor-pointer p-2 px-4 w-full rounded-md"
         >
           Save
         </button>
-        <button onClick={handleCanel}>Cancel</button>
+        <button
+          onClick={handleCanel}
+          className="border-[grey] cursor-pointer border p-2 px-4 w-full rounded-md"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   );

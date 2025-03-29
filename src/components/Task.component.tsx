@@ -24,12 +24,13 @@ export default function TaskComp({ title, completed, id }: ITodo) {
   const handleDeleteId = async () => await deleteTodo(id);
 
   return (
-    <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+    <div className="flex gap-4 items-center border-b-2">
       <div>
         <input
           type="checkbox"
           onChange={() => handleUpdateStatus(!completed)}
           defaultChecked={completed}
+          className="w-8 h-8"
         />
       </div>
       {isEdit ? (
