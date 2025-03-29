@@ -1,3 +1,4 @@
+import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import { useSelector } from "react-redux";
 import { ITodo } from "../interfaces/todo.interface";
 import { useGetTodosQuery } from "../services/todo.api";
@@ -12,17 +13,16 @@ export default function TodoList() {
   if (error) return <p>Error fetching todos</p>;
 
   return (
-    <div>
-      {todos.length > 0 &&
-        todos.map((todo: ITodo) => (
-          <div key={todo.id}>
-            <TaskComp
-              id={todo.id}
-              title={todo?.title}
-              completed={todo?.completed}
-            />
+    <List height={500} itemCount={todos.length} itemSize={50} width="100%">
+      {({ index, style }: ListChildComponentProps) => {
+        const todo: ITodo = todos[index];
+        if (!todo) return null;
+        return (
+          <div style={style}>
+            <TaskComp {...todo} />
           </div>
-        ))}
-    </div>
+        );
+      }}
+    </List>
   );
 }
