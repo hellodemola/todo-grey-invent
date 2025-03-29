@@ -3,7 +3,7 @@ import { RootState } from '../store';
 import { ITodo } from '../../interfaces/todo.interface';
 
 export const selectTodos = (state: RootState) =>
-  state.todoApi.queries['getTodos(undefined)']?.data || [];
+  state.todo.todos;
 
 export const selectFilters = (state: RootState) => state.filter;
 

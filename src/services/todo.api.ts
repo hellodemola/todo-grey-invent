@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ITodo } from '../interfaces/todo.interface';
+import { addTodo, deleteTodo, setTodos, updateTodo } from '../store/slices/todo.slice';
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/'
 
@@ -9,6 +9,14 @@ export const todoApi = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: () => 'todos?_limit=50',
+      async onQueryStarted(_, {dispatch, queryFulfilled}){
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setTodos(data)); 
+        } catch (error) {
+          console.error('Error fetching todos:', error);
+        }
+      }
     }),
     addTodo: builder.mutation({
       query: (newTodo) => ({
@@ -21,25 +29,13 @@ export const todoApi = createApi({
         const temporaryId = Date.now(); // Generate a temp ID for the optimistic update
         const optimisticTodo = { ...newTodo, id: temporaryId, completed: false };
 
-        // Update local store optimistically
-        const updateResult = dispatch(
-          todoApi.util.updateQueryData('getTodos', undefined, (draft) => {
-            draft.unshift(optimisticTodo); // Add new task to the top of the list
-          })
-        );
+        dispatch(addTodo(optimisticTodo))
 
         try {
-          const { data } = await queryFulfilled; // Wait for the API response
-          dispatch(
-            todoApi.util.updateQueryData('getTodos', undefined, (draft) => {
-              const index = draft.findIndex((task: ITodo) => task.id === temporaryId);
-              if (index !== -1) {
-                draft[index] = data; // Replace temporary task with actual API response
-              }
-            })
-          );
+          const { data } = await queryFulfilled;
+          dispatch(updateTodo({ id: temporaryId, updatedFields: data })); // ✅ Update with real API data
         } catch {
-          updateResult.undo(); // If API fails, remove the optimistic task
+          dispatch(deleteTodo(temporaryId)); // ❌ Remove if API fails
         }
       },
     }),
@@ -49,21 +45,13 @@ export const todoApi = createApi({
         method: 'PATCH',
         body: rest,
       }),
-      // 🚀 Manually update the store instead of waiting for API response
       async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
-          todoApi.util.updateQueryData('getTodos', undefined, (draft) => {
-            const todo = draft.find((t: ITodo) => t.id === id);
-            if (todo) {
-              Object.assign(todo, patch); // Update only the modified fields
-            }
-          })
-        );
+        dispatch(updateTodo({ id, updatedFields: patch })); // ✅ Optimistic UI update
 
         try {
-          await queryFulfilled; // Try API request
+          await queryFulfilled; // ✅ API request success
         } catch {
-          patchResult.undo(); // Revert changes if API fails
+          console.error('Failed to update todo');
         }
       },
     
@@ -74,20 +62,15 @@ export const todoApi = createApi({
         method: 'DELETE',
       }),
       
-         // 🚀 Optimistically remove the task before API response
-         async onQueryStarted(id, { dispatch, queryFulfilled }) {
-          const deleteResult = dispatch(
-            todoApi.util.updateQueryData('getTodos', undefined, (draft) => {
-              return draft.filter((task: ITodo) => task.id !== id); // Remove the task from state
-            })
-          );
-  
-          try {
-            await queryFulfilled; // Ensure API request succeeds
-          } catch {
-            deleteResult.undo(); // If API fails, restore the deleted task
-          }
-        },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        dispatch(deleteTodo(id)); // ✅ Optimistically remove from UI
+
+        try {
+          await queryFulfilled; // ✅ API success
+        } catch {
+          console.error('Failed to delete todo');
+        }
+      },
       
 
 
