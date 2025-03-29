@@ -24,6 +24,7 @@ export default function TaskEditComp({
             handleEditFunc();
           }
         }}
+        className="border w-100 p-1"
       />
 
       <div className="flex gap-8 justify-between">

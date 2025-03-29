@@ -4,6 +4,8 @@ import { todoApi } from '../services/todo.api';
 import filterReducer from './slices/filter.slice';
 import todoReducer from './slices/todo.slice';
 import storage from 'redux-persist/lib/storage';
+import themeReducer from './slices/theme.slice';
+import modalReducer from "./slices/modal.slice";
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   [todoApi.reducerPath]: todoApi.reducer,
   filter: filterReducer,
   todo: todoReducer,
+  theme: themeReducer,
+  modal: modalReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

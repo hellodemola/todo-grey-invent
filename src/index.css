@@ -1,8 +1,15 @@
 @import "tailwindcss";
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
 
+/* Apply styles for dark mode */
+.dark body {
+    background-color: #0a192f; /* Midnight Blue */
+    color: #ccd6f6; /* Light text */
+  }
 
-
-
+  /* dark:bg-[#112240] dark:text-white */
 
 
 
