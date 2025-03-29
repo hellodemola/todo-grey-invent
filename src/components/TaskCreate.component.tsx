@@ -10,7 +10,15 @@ export default function TaskCreateComp({
   const [updatedTitle, setUpdatedTitle] = useState<string>("");
   return (
     <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-      <input onChange={(e) => setUpdatedTitle(e.target.value)} />
+      <input
+        autoFocus
+        onChange={(e) => setUpdatedTitle(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && updatedTitle) {
+            handleEdit(updatedTitle);
+          }
+        }}
+      />
 
       <div>
         <button

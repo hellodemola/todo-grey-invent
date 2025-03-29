@@ -6,8 +6,8 @@ export default function CreateTodoList() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [createTodo] = useAddTodoMutation();
   const handleCreateTask = async (title: string) => {
-    await createTodo({ title, completed: false }).unwrap();
     setShowAddForm(false);
+    await createTodo({ title, completed: false }).unwrap();
   };
 
   return (
