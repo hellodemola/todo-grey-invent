@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { addTodo, deleteTodo, setTodos, updateTodo } from '../store/slices/todo.slice';
+import toast from 'react-hot-toast';
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/'
 
@@ -13,8 +14,8 @@ export const todoApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setTodos(data)); 
-        } catch (error) {
-          console.error('Error fetching todos:', error);
+        } catch  {
+          toast.error('Error fetching todos');
         }
       }
     }),
@@ -51,7 +52,7 @@ export const todoApi = createApi({
         try {
           await queryFulfilled; // ✅ API request success
         } catch {
-          console.error('Failed to update todo');
+          toast.error('Failed to update todo');
         }
       },
     
@@ -68,7 +69,7 @@ export const todoApi = createApi({
         try {
           await queryFulfilled; // ✅ API success
         } catch {
-          console.error('Failed to delete todo');
+          toast.error('Failed to delete todo');
         }
       },
       
