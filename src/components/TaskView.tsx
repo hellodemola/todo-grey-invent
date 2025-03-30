@@ -11,9 +11,11 @@ export function TaskViewComp({
   handleDelete: () => void;
 }) {
   return (
-    <div className="flex justify-between items-center my-2 w-full">
-      <p className="leading-[1.5em] font-light text-[1.2em]">{title}</p>
-      <div className="flex gap-8 justify-between">
+    <div className="lg:flex justify-between items-center lg:my-2 w-full">
+      <p className="lg:leading-[1.5em] leading-normal font-light text-[1.2em]">
+        {title}
+      </p>
+      <div className="flex lg:gap-8 gap-4 lg:justify-between">
         <button onClick={handleEdit}>
           <FontAwesomeIcon icon={faPencil} />
         </button>

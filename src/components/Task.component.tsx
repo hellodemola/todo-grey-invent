@@ -24,7 +24,7 @@ export default function TaskComp({ title, completed, id }: ITodo) {
   const handleDeleteId = async () => await deleteTodo(id);
 
   return (
-    <div className="flex gap-4 items-center border-b-2">
+    <div className="flex gap-4 lg:items-center border-b-2">
       <div>
         <input
           type="checkbox"
