@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setSearchQuery, setStatus } from "../store/slices/filter.slice";
 
-export default function FilterTodList() {
+export default function FilterTodoList() {
   const dispatch = useDispatch();
   return (
     <div>

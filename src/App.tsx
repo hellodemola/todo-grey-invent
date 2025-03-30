@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import CreateTodoList from "./components/CreateTodoList.component";
-import FilterTodList from "./components/FilterTodo.component";
-import TodoList from "./components/TodoList";
+import FilterTodoList from "./components/FilterTodo.component";
 import { RootState } from "./store/store";
 import ToggleSwitch from "./components/ToggleSwitch.component";
+import TaskList from "./components/TaskList";
 
 function App() {
   const isDark = useSelector((state: RootState) => state.theme.darkMode);
@@ -20,8 +20,8 @@ function App() {
           <ToggleSwitch />
         </div>
         <CreateTodoList />
-        <FilterTodList />
-        <TodoList />
+        <FilterTodoList />
+        <TaskList />
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ import { selectFilteredTodos } from "../store/selectors/filter.selector";
 import useItemSize from "../hooks/useItemSize";
 import BeatLoader from "react-spinners/BeatLoader";
 
-export default function TodoList() {
+export default function TaskList() {
   const { isLoading } = useGetTodosQuery(undefined);
   const todos = useSelector(selectFilteredTodos);
   const itemSize = useItemSize();

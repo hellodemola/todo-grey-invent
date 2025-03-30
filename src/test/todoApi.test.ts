@@ -12,22 +12,18 @@ const mockTodos = [
 ];
 
 const server = setupServer(
-  // Mock GET request for fetching todos
   http.get(baseUrl, () => HttpResponse.json(mockTodos)),
 
-  // Mock POST request for adding a todo
   http.post(baseUrl, async ({ request }) => {
     const newTodo = await request.json();
     return HttpResponse.json(Object.assign({}, newTodo, { id: 3 }), { status: 201 });
   }),
 
-  // Mock PATCH request for updating a todo
   http.patch(`${baseUrl}/:id`, async ({ params, request }) => {
     const updatedFields = await request.json();
     return HttpResponse.json({ id: Number(params.id), ...(updatedFields as object) });
   }),
 
-  // Mock DELETE request for deleting a todo
   http.delete(`${baseUrl}/:id`, ({ params }) => {
     return HttpResponse.json({ success: true, id: Number(params.id) });
   })

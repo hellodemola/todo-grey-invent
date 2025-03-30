@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 
 const useItemSize = () => {
-    const [itemSize, setItemSize] = useState(50); // Default size
+    const [itemSize, setItemSize] = useState(50);
 
-    // Adjust itemSize based on screen width
     useEffect(() => {
       const handleResize = () => {
         if (window.innerWidth < 640) {
-          setItemSize(100); // Larger for mobile
+          setItemSize(100); 
         } else {
-          setItemSize(50); // Default for larger screens
+          setItemSize(50); 
         }
       };
   
-      handleResize(); // Run initially
+      handleResize(); 
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, []);

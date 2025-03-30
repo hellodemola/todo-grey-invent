@@ -14,8 +14,6 @@ export const todoApi = createApi({
       query: () => 'todos?_limit=50',
       async onQueryStarted(_, {dispatch, queryFulfilled, getState}){
         try {
-
-          //🚀 Check for exisiting data: if data already exist in store, prevent from replacing
           const todoStore = getState() as RootState;
           if (todoStore.todo.todos.length > 0) return ;
 
@@ -32,18 +30,18 @@ export const todoApi = createApi({
         method: 'POST',
         body: newTodo,
       }),
-       // 🚀 Optimistic UI: Add the new task before the API response
+
        async onQueryStarted(newTodo, { dispatch, queryFulfilled }) {
-        const temporaryId = Date.now(); // Generate a temp ID for the optimistic update
+        const temporaryId = Date.now();
         const optimisticTodo = { ...newTodo, id: temporaryId, completed: false };
 
         dispatch(addTodo(optimisticTodo))
 
         try {
           const { data } = await queryFulfilled;
-          dispatch(updateTodo({ id: temporaryId, updatedFields: data })); // ✅ Update with real API data
+          dispatch(updateTodo({ id: temporaryId, updatedFields: data })); 
         } catch {
-          dispatch(deleteTodo(temporaryId)); // ❌ Remove if API fails
+          dispatch(deleteTodo(temporaryId)); 
         }
       },
     }),
@@ -54,10 +52,10 @@ export const todoApi = createApi({
         body: rest,
       }),
       async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
-        dispatch(updateTodo({ id, updatedFields: patch })); // ✅ Optimistic UI update
+        dispatch(updateTodo({ id, updatedFields: patch })); 
 
         try {
-          await queryFulfilled; // ✅ API request success
+          await queryFulfilled; 
         } catch {
           toast.error('Failed to update todo');
         }
@@ -71,10 +69,10 @@ export const todoApi = createApi({
       }),
       
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        dispatch(deleteTodo(id)); // ✅ Optimistically remove from UI
+        dispatch(deleteTodo(id)); 
 
         try {
-          await queryFulfilled; // ✅ API success
+          await queryFulfilled;
         } catch {
           toast.error('Failed to delete todo');
         }
