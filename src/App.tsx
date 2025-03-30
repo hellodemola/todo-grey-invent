@@ -12,8 +12,8 @@ function App() {
       style={isDark ? darkStyle : lightStyle}
       className="flex h-screen w-screen justify-center"
     >
-      <div className="lg:w-8/12 w-full">
-        <div className="flex justify-between">
+      <div className="lg:w-8/12 w-full px-6 lg:px-0">
+        <div className="lg:flex justify-between">
           <h1 className="text-[2em] font-light my-2">
             Colloborative Todo List
           </h1>
