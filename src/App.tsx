@@ -10,7 +10,7 @@ function App() {
   return (
     <section
       style={isDark ? darkStyle : lightStyle}
-      className="flex h-screen w-screen justify-center"
+      className="flex h-svh w-screen justify-center overflow-scroll"
     >
       <div className="lg:w-8/12 w-full px-6 lg:px-0">
         <div className="lg:flex justify-between">
