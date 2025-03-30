@@ -17,7 +17,7 @@ export const todoApi = createApi({
 
           //🚀 Check for exisiting data: if data already exist in store, prevent from replacing
           const todoStore = getState() as RootState;
-          if (todoStore.todo.todos) return ;
+          if (todoStore.todo.todos.length > 0) return ;
 
           const { data } = await queryFulfilled;
           dispatch(setTodos(data)); 
