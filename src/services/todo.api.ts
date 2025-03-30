@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { addTodo, deleteTodo, setTodos, updateTodo } from '../store/slices/todo.slice';
 import toast from 'react-hot-toast';
+import { RootState } from '../store/store';
+
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/'
 
@@ -10,8 +12,13 @@ export const todoApi = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: () => 'todos?_limit=50',
-      async onQueryStarted(_, {dispatch, queryFulfilled}){
+      async onQueryStarted(_, {dispatch, queryFulfilled, getState}){
         try {
+
+          //🚀 Check for exisiting data: if data already exist in store, prevent from replacing
+          const todoStore = getState() as RootState;
+          if (todoStore.todo.todos) return ;
+
           const { data } = await queryFulfilled;
           dispatch(setTodos(data)); 
         } catch  {
