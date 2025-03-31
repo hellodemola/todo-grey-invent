@@ -15,7 +15,7 @@ function App() {
       <div className="lg:w-8/12 w-full px-6 lg:px-0">
         <div className="lg:flex justify-between">
           <h1 className="text-[2em] font-light my-2">
-            Colloborative Todo List
+            Collaborative Todo List
           </h1>
           <ToggleSwitch />
         </div>

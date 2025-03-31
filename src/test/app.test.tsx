@@ -12,7 +12,7 @@ describe("Todo List Component", () => {
       </Provider>
     );
 
-    expect(screen.getByText("Colloborative Todo List")).toBeInTheDocument();
+    expect(screen.getByText("Collaborative Todo List")).toBeInTheDocument();
   });
 
   it("allows adding a new todo", () => {
